@@ -1,0 +1,812 @@
+import 'package:flutter/material.dart';
+import 'package:ecza/addingmeds';
+import 'package:ecza/providers/input_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart'; //Sayfanın çalışması için gerekli paketler eklenir.
+
+
+
+
+class ListPage extends StatelessWidget with WidgetsBindingObserver {
+
+
+  @override
+  void initState() { 
+    WidgetsBinding.instance.addObserver(this);
+
+  }
+
+  void didChangeAppLifecycleState(AppLifecycleState state){
+    super.didChangeAppLifecycleState(state);
+
+    if(state == AppLifecycleState.inactive || state== AppLifecycleState.detached) return;
+
+    final isDetached = state == AppLifecycleState.detached;
+
+
+  }
+
+  void hesapla(){ //İlaçların kalan kullanım gününü hesaplayan algoritma çalıştırılır.
+    double i =1;
+
+    
+
+    if(max1>0){
+      m1=true;
+    }
+    
+
+    if(i==1){ //İlaçların kullanıldığı pazartesi günleri hesaplanır.
+      print(i);
+      if(max1<=0){m1=false;}
+      if(pazartesi1 && m1){max1=max1-gunluk1; gun1++;}
+      else if(pazartesi1==false && m1){gun1++;}
+
+      
+      
+      if(max2<=0){m2=false;} 
+      if(pazartesi2 && m2){max2=max2-gunluk2; gun2++;}
+      else if(pazartesi2==false && m2){gun2++;}
+
+      
+      if(max3<=0){m3=false;}
+      if(pazartesi3 && m3){max3=max3-gunluk3; gun3++;}
+      else if(pazartesi3==false && m3){gun3++;}
+      
+      if(max4<=0){m4=false;}
+      if(pazartesi4 && m4){max4=max4-gunluk4; gun4++;}
+      else if(pazartesi4==false && m4){gun4++;}
+      
+      if(max5<=0){m5=false;}
+      if(pazartesi5 && m5){max5=max5-gunluk5; gun5++;}
+      else if(pazartesi5==false && m5){gun5++;}
+
+      i++;
+    }
+
+    if(i==2){ //İlaçların kullanıldığı salı günleri hesaplanır.
+      print(i);
+      if(max1<=0){m1=false;}
+      if(sali1 && max1>0){max1=max1-gunluk1; gun1++;}
+      else if(sali1==false && m1){gun1++;}
+
+      
+      if(max2<=0){m2=false;}
+      if(sali2 && m2){max2=max2-gunluk2; gun2++;}
+      else if(sali2==false && m2){gun2++;}
+
+
+      if(max3<=0){m3=false;}
+      if(sali3 && m3){max3=max3-gunluk3; gun3++;}
+      else if(sali3==false && m3){gun3++;}
+      
+      if(max4<=0){m4=false;}
+      if(sali4 && m4){max4=max4-gunluk4; gun4++;}
+      else if(sali4==false && m4){gun4++;}
+      
+      if(max5<=0){m5=false;}
+      if(sali5 && m5){max5=max5-gunluk5; gun5++;}
+      else if(sali5==false && m5){gun5++;}
+      
+      i++;
+    }
+
+    if(i==3){ //İlaçların kullanıldığı çarşamba günleri hesaplanır.
+      print(i);
+      if(max1<=0){m1=false;}
+      if(carsamba1 && max1>0){max1=max1-gunluk1; gun1++;}
+      else if(carsamba1==false && m1){gun1++;}
+
+
+      if(max2<=0){m2=false;}
+      if(carsamba2 && m2){max2=max2-gunluk2; gun2++;}
+      else if(carsamba2==false && m2){gun2++;}
+
+
+      if(max3<=0){m3=false;}
+      if(carsamba3 && m3){max3=max3-gunluk3; gun3++;}
+      else if(carsamba3==false && m3){gun3++;}
+
+      if(max4<=0){m4=false;}
+      if(carsamba4 && m4){max4=max4-gunluk4; gun4++;}
+      else if(carsamba4==false && m4){gun4++;}
+      
+      if(max5<=0){m5=false;}
+      if(carsamba5 && m5){max5=max5-gunluk5; gun5++;}
+      else if(carsamba5==false && m5){gun5++;}
+      
+
+      i++;
+    }
+
+    if(i==4){ //İlaçların kullanıldığı perşembe günleri hesaplanır.
+      print(i);
+      if(max1<=0){m1=false;}
+      if(persembe1 && max1>0){max1=max1-gunluk1; gun1++;}
+      else if(persembe1==false && m1){gun1++;}
+
+
+      if(max2<=0){m2=false;}
+      if(persembe2 && m2){max2=max2-gunluk2; gun2++;}
+      else if(persembe2==false && m2){gun2++;}
+
+
+      if(max3<=0){m3=false;}
+      if(persembe3 && m3){max3=max3-gunluk3; gun3++;}
+      else if(persembe3==false && m3){gun3++;}
+      
+
+      if(max4<=0){m4=false;}
+      if(persembe4 && m4){max4=max4-gunluk4; gun4++;}
+      else if(persembe4==false && m4){gun4++;}
+      
+
+      if(max5<=0){m5=false;}
+      if(persembe5 && m5){max5=max5-gunluk5; gun5++;}
+      else if(persembe5==false && m5){gun5++;}
+      
+      i++;
+    }
+
+    if(i==5){ //İlaçların kullanıldığı cuma günleri hesaplanır.
+      print(i);
+      if(max1<=0){m1=false;}
+      if(cuma1 && max1>0){max1=max1-gunluk1; gun1++;}
+      else if(cuma1==false && m1){gun1++;}
+
+
+      if(max2<=0){m2=false;}
+      if(cuma2 && m2){max2=max2-gunluk2; gun2++;}
+      else if(cuma2==false && m2){gun2++;}
+
+
+      if(max3<=0){m3=false;}
+      if(cuma3 && m3){max3=max3-gunluk3; gun3++;}
+      else if(cuma3==false && m3){gun3++;}
+      
+
+      if(max4<=0){m4=false;}
+      if(cuma4 && m4){max4=max4-gunluk4; gun4++;}
+      else if(cuma4==false && m4){gun4++;}
+      
+
+      if(max5<=0){m5=false;}
+      if(cuma5 && m5){max5=max5-gunluk5; gun5++;}
+      else if(cuma5==false && m5){gun5++;}
+      
+
+      i++;
+    }
+
+    if(i==6){ //İlaçların kullanıldığı cumartesi günleri hesaplanır.
+      print(i);
+      if(max1<=0){m1=false;}
+      if(cumartesi1 && max1>0){max1=max1-gunluk1; gun1++;}
+      else if(cumartesi1==false && m1){gun1++;}
+
+
+      if(max2<=0){m2=false;}
+      if(cumartesi2 && m2){max2=max2-gunluk2; gun2++;}
+      else if(cumartesi2==false && m2){gun2++;}
+
+
+      if(max3<=0){m3=false;}
+      if(cumartesi3 && m3){max3=max3-gunluk3; gun3++;}
+      else if(cumartesi3==false && m3){gun3++;}
+
+      if(max4<=0){m4=false;}
+      if(cumartesi4 && m4){max4=max4-gunluk4; gun4++;}
+      else if(cumartesi4==false && m4){gun4++;}
+      
+      if(max5<=0){m5=false;}
+      if(cumartesi5 && m5){max5=max5-gunluk5; gun5++;}
+      else if(cumartesi5==false && m5){gun5++;}
+
+      i++;
+    }
+
+    if(i==7){ //İlaçların kullanıldığı pazar günleri hesaplanır.
+      print(i);
+      if(max1<=0){m1=false;}
+      if(pazar1 && max1>0){max1=max1-gunluk1; gun1++;}
+      else if(pazar1==false && m1){gun1++;}
+
+
+      if(max2<=0){m2=false;}
+      if(pazar2 && m2){max2=max2-gunluk2; gun2++;}
+      else if(pazar2==false && m2){gun2++;}
+
+
+      if(max3<=0){m3=false;}
+      if(pazar3 && m3){max3=max3-gunluk3; gun3++;}
+      else if(pazar3==false && m3){gun3++;}
+      
+      if(max4<=0){m4=false;}
+      if(pazar4 && m4){max4=max4-gunluk4; gun4++;}
+      else if(pazar4==false && m4){gun4++;}
+      
+      if(max5<=0){m5=false;}
+      if(pazar5 && m5){max5=max5-gunluk5; gun5++;}
+      else if(pazar5==false && m5){gun5++;}
+      
+
+      i++;
+
+      if(max1<0){max1=0;}
+      if(max2<0){max2=0;}
+      if(max3<0){max3=0;}
+      if(max4<0){max4=0;}
+      if(max5<0){max5=0;}
+    }
+
+
+                }
+  
+   
+  
+
+  @override
+
+  final _mybox = Hive.box('mybox');
+
+  bool pazartesi1 = false;
+  bool pazartesi2 = false;
+  bool pazartesi3 = false;
+  bool pazartesi4 = false;
+  bool pazartesi5 = false;
+
+  bool sali1 = false;
+  bool sali2 = false;
+  bool sali3 = false;
+  bool sali4 = false;
+  bool sali5 = false;
+
+  bool carsamba1 = false;
+  bool carsamba2 = false;
+  bool carsamba3 = false;
+  bool carsamba4 = false;
+  bool carsamba5 = false;
+
+  bool persembe1 = false;
+  bool persembe2 = false;
+  bool persembe3 = false;
+  bool persembe4 = false;
+  bool persembe5 = false;
+
+  bool cuma1 = false;
+  bool cuma2 = false;
+  bool cuma3 = false;
+  bool cuma4 = false;
+  bool cuma5 = false;
+
+  bool cumartesi1 = false;
+  bool cumartesi2 = false;
+  bool cumartesi3 = false;
+  bool cumartesi4 = false;
+  bool cumartesi5 = false;
+
+  bool pazar1 = false;
+  bool pazar2 = false;
+  bool pazar3 = false;
+  bool pazar4 = false;
+  bool pazar5 = false;
+
+  
+  double tane1 =0; 
+  double tane2 =0;
+  double tane3 =0;
+  double tane4 =0;
+  double tane5 =0;
+
+  double kutu1=0;
+  double kutu2=0;
+  double kutu3=0;
+  double kutu4=0;
+  double kutu5=0;
+
+  double gunluk1=0;
+  double gunluk2=0;
+  double gunluk3=0;
+  double gunluk4=0;
+  double gunluk5=0;
+
+  double max1=0;
+  double max2=0;
+  double max3=0;
+  double max4=0;
+  double max5=0;
+
+  double a =1;
+                
+  int gun1=0;
+  int gun2=0;
+  int gun3=0;
+  int gun4=0;
+  int gun5=0;
+
+  int gun1d=0;
+  int gun2d=0;
+  int gun3d=0;
+  int gun4d=0;
+  int gun5d=0;
+
+  double _datec=0;
+
+  int gunt=0;
+
+  double ygun1=0;
+  double ygun2=0;
+  double ygun3=0;
+  double ygun4=0;
+  double ygun5=0;
+
+  String yguns1='';
+  String yguns2='';
+  String yguns3='';
+  String yguns4='';
+  String yguns5='';
+
+  String med1s= '';
+  String med2s= '';
+  String med3s= '';
+  String med4s= '';
+  String med5s= '';
+
+  String m1s= '';
+  String m2s= '';
+  String m3s= '';
+  String m4s= '';
+  String m5s= '';
+
+  String med1str='alınamaz';
+  String med2str='alınamaz';
+  String med3str='alınamaz';
+  String med4str='alınamaz';
+  String med5str='alınamaz';
+
+  bool m1=true;
+  bool m2=true;
+  bool m3=true;
+  bool m4=true;
+  bool m5=true;
+
+  bool med1b= false; 
+  bool med2b= false;
+  bool med3b= false;
+  bool med4b= false;
+  bool med5b= false;
+
+  bool datec=false;
+
+  bool ghg=false;
+
+  String isimilac1='';
+
+  String abc='abc';
+
+  bool Datec=false;
+
+  int silgi=0;
+  int kalem1 = 0;
+  int kalem2 = 0;
+  int kalem3 = 0;
+  int kalem4 = 0;
+  int kalem5 = 0;
+
+  bool gun1db = false;
+  bool gun2db = false;
+  bool gun3db = false;
+  bool gun4db = false;
+  bool gun5db = false;
+
+  double a1gun =0;
+  double a2gun =0;
+  double a3gun =0;
+  double a4gun =0;
+  double a5gun =0; //Uygulamanın çalışması için gerekli değişkenler atanır.
+
+  Widget build(BuildContext context) {
+
+    Color getColor1(){
+      int a= context.read<Input_prov>().ogun1;
+      if(a>=18){return Colors.green;} else if(a<17 && a>=15){return Colors.orange;} else{return Colors.red;}
+    } //Kalan gün sayısına göre ilaç isminin renginin değişmesi sağlanır.
+
+    Color getColor2(){
+      int a= context.read<Input_prov>().ogun2;
+      if(a>=18){return Colors.green;} else if(a<17 && a>=15){return Colors.orange;} else{return Colors.red;}
+    }  //Kalan gün sayısına göre ilaç isminin renginin değişmesi sağlanır.
+
+    Color getColor3(){
+      int a= context.read<Input_prov>().ogun3;
+      if(a>=18){return Colors.green;} else if(a<17 && a>=15){return Colors.orange;} else {return Colors.red;}
+    }  //Kalan gün sayısına göre ilaç isminin renginin değişmesi sağlanır.
+
+    Color getColor4(){
+      int a= context.read<Input_prov>().ogun4;
+      if(a>=18){return Colors.green;} else if(a<=17 && a>=15){return Colors.orange;} else{return Colors.red;}
+    }  //Kalan gün sayısına göre ilaç isminin renginin değişmesi sağlanır.
+
+    Color getColor5(){
+      int a= context.read<Input_prov>().ogun5;
+      if(a>=18){return Colors.green;} else if(a<=17 && a>=15){return Colors.orange;} else{return Colors.red;}
+    }  //Kalan gün sayısına göre ilaç isminin renginin değişmesi sağlanır.
+
+    return Scaffold(
+      
+        backgroundColor: Color(0xFFe1efef), //Uygulamanın arka plan rengi ayarlanır.
+        body:ListView(
+          children:[
+            Container(
+              width: double.maxFinite,
+              height: 55,
+              color: Colors.blue, 
+              child: Center(child: Text(
+            'E-CZA',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 40,
+              backgroundColor: Colors.blue,) //Başlığı çevreleyen alanın rengi ayarlanır.
+              
+            ),
+            )
+            
+          ), //Uygulama başlığı ve başlığı çevreleyen alan eklenir.
+
+
+          Column(
+            children: <Widget>[
+              ListTile(title: Text('${context.read<Input_prov>().med1 ?? ''} bitmesine ${context.read<Input_prov>().ogun1} gün kaldı. ${context.read<Input_prov>().med1str}', style: TextStyle(color: getColor1()))),
+              ListTile(title: Text('${context.read<Input_prov>().med2 ?? ''} bitmesine ${context.read<Input_prov>().ogun2} gün kaldı. ${context.read<Input_prov>().med2str}', style: TextStyle(color: getColor2()))),
+              ListTile(title: Text('${context.read<Input_prov>().med3 ?? ''} bitmesine ${context.read<Input_prov>().ogun3} gün kaldı. ${context.read<Input_prov>().med3str}', style: TextStyle(color: getColor3()))),
+              ListTile(title: Text('${context.read<Input_prov>().med4 ?? ''} bitmesine ${context.read<Input_prov>().ogun4} gün kaldı. ${context.read<Input_prov>().med4str}', style: TextStyle(color: getColor4()))),
+              ListTile(title: Text('${context.read<Input_prov>().med5 ?? ''} bitmesine ${context.read<Input_prov>().ogun5} gün kaldı. ${context.read<Input_prov>().med5str}', style: TextStyle(color: getColor5()))),
+              ListTile(title: Text('İlaçlarınız optimal şekilde ${context.read<Input_prov>().ogunt} gün sonra reçetelendirebilirsiniz.')),
+            ],
+          ), //İlaç isimleri ve kalan kullanım zamanları ekrana yazdırılır.
+             //İdeal reçetelendirme zamanı ekrana yazılır.
+
+            
+            Column(
+            children: <Widget>[
+            
+            SizedBox(width: 150,), 
+
+            ElevatedButton(
+              child: Text('İlaç Ekle'),
+              onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => AddScreen()));
+              Provider.of<Input_prov>(context, listen: false);
+              }
+            ), //İlaç ekleme ekranına gidiş butonu eklenir.
+
+            SizedBox(width: 150,),
+        ], 
+        ),
+
+            
+            SizedBox
+          (
+          height: 5,
+          ),
+
+            SizedBox(height:5,),
+
+
+           Column(
+              children: <Widget>[
+                SizedBox(width: 150,),
+
+                ElevatedButton(
+              child: Text("Hesapla"),
+              onPressed:(){
+                
+
+
+                tane1 = context.read<Input_prov>().ttablet1;
+                tane2 = context.read<Input_prov>().ttablet2;
+                tane3 = context.read<Input_prov>().ttablet3;
+                tane4 = context.read<Input_prov>().ttablet4;
+                tane5 = context.read<Input_prov>().ttablet5;
+
+                if(_mybox.get(1) != 0 && _mybox.get(1) != null && context.read<Input_prov>().ttablet1 == 0){context.read<Input_prov>().reload1(); }
+                if(_mybox.get(4) != 0 && _mybox.get(4) != null && context.read<Input_prov>().ttablet2 == 0){context.read<Input_prov>().reload2(); }
+                if(_mybox.get(7) != 0 && _mybox.get(7) != null && context.read<Input_prov>().ttablet3 == 0){context.read<Input_prov>().reload3(); }
+                if(_mybox.get(10) != 0 && _mybox.get(10) != null && context.read<Input_prov>().ttablet4 == 0){context.read<Input_prov>().reload4(); }
+                if(_mybox.get(13) != 0 && _mybox.get(13) != null && context.read<Input_prov>().ttablet5 == 0){context.read<Input_prov>().reload5(); }
+
+                tane1 = context.read<Input_prov>().ttablet1;
+                tane2 = context.read<Input_prov>().ttablet2;
+                tane3 = context.read<Input_prov>().ttablet3;
+                tane4 = context.read<Input_prov>().ttablet4;
+                tane5 = context.read<Input_prov>().ttablet5;
+
+                kutu1 = context.read<Input_prov>().kutu1;
+                kutu2 = context.read<Input_prov>().kutu2;
+                kutu3 = context.read<Input_prov>().kutu3;
+                kutu4 = context.read<Input_prov>().kutu4;
+                kutu5 = context.read<Input_prov>().kutu5;
+
+                gunluk1 = context.read<Input_prov>().gunluk1;
+                gunluk2 = context.read<Input_prov>().gunluk2;
+                gunluk3 = context.read<Input_prov>().gunluk3;
+                gunluk4 = context.read<Input_prov>().gunluk4;
+                gunluk5 = context.read<Input_prov>().gunluk5;
+
+                pazartesi1 = context.read<Input_prov>().pazartesi1;
+                pazartesi2 = context.read<Input_prov>().pazartesi2;
+                pazartesi3 = context.read<Input_prov>().pazartesi3;
+                pazartesi4 = context.read<Input_prov>().pazartesi4;
+                pazartesi5 = context.read<Input_prov>().pazartesi5;
+
+                sali1 = context.read<Input_prov>().sali1;
+                sali2 = context.read<Input_prov>().sali2;
+                sali3 = context.read<Input_prov>().sali3;
+                sali4 = context.read<Input_prov>().sali4;
+                sali5 = context.read<Input_prov>().sali5;
+
+                carsamba1 = context.read<Input_prov>().carsamba1;
+                carsamba2 = context.read<Input_prov>().carsamba2;
+                carsamba3 = context.read<Input_prov>().carsamba3;
+                carsamba4 = context.read<Input_prov>().carsamba4;
+                carsamba5 = context.read<Input_prov>().carsamba5;
+
+                persembe1 = context.read<Input_prov>().persembe1;
+                persembe2 = context.read<Input_prov>().persembe2;
+                persembe3 = context.read<Input_prov>().persembe3;
+                persembe4 = context.read<Input_prov>().persembe4;
+                persembe5 = context.read<Input_prov>().persembe5;
+
+                cuma1 = context.read<Input_prov>().cuma1;
+                cuma2 = context.read<Input_prov>().cuma2;
+                cuma3 = context.read<Input_prov>().cuma3;
+                cuma4 = context.read<Input_prov>().cuma4;
+                cuma5 = context.read<Input_prov>().cuma5;
+
+                cumartesi1 = context.read<Input_prov>().cumartesi1;
+                cumartesi2 = context.read<Input_prov>().cumartesi2;
+                cumartesi3 = context.read<Input_prov>().cumartesi3;
+                cumartesi4 = context.read<Input_prov>().cumartesi4;
+                cumartesi5 = context.read<Input_prov>().cumartesi5;
+
+                pazar1 = context.read<Input_prov>().pazar1;
+                pazar2 = context.read<Input_prov>().pazar2;
+                pazar3 = context.read<Input_prov>().pazar3;
+                pazar4 = context.read<Input_prov>().pazar4;
+                pazar5 = context.read<Input_prov>().pazar5;
+                
+                med1s=context.read<Input_prov>().med1 ?? '';
+
+
+                max1= kutu1*tane1;
+                max2= kutu2*tane2;
+                max3= kutu3*tane3;
+                max4= kutu4*tane4;
+                max5= kutu5*tane5;
+
+                ghg=true;
+
+
+
+                while(ghg==true){
+                  hesapla();
+                  if(max1<=0 && max2<=0 && max3<=0 && max4<=0 && max5<=0){ghg=false;}
+                } 
+
+
+
+    context.read<Input_prov>().guns1(gun1);
+    context.read<Input_prov>().guns2(gun2);
+    context.read<Input_prov>().guns3(gun3);
+    context.read<Input_prov>().guns4(gun4);
+    context.read<Input_prov>().guns5(gun5);
+
+    context.read<Input_prov>().compareDate1();
+    context.read<Input_prov>().compareDate2();
+    context.read<Input_prov>().compareDate3();
+    context.read<Input_prov>().compareDate4();
+    context.read<Input_prov>().compareDate5();
+
+    gun1d=context.read<Input_prov>().ogun1;
+    gun2d=context.read<Input_prov>().ogun2;
+    gun3d=context.read<Input_prov>().ogun3;
+    gun4d=context.read<Input_prov>().ogun4;
+    gun5d=context.read<Input_prov>().ogun5;
+ 
+
+    if(gun1d>0){gun1db=true;}
+    if(gun2d>0){gun2db=true;}
+    if(gun3d>0){gun3db=true;}
+    if(gun4d>0){gun4db=true;}
+    if(gun5d>0){gun5db=true;}
+
+
+    
+    while(gun1d>15 || gun2d>15 || gun3d>15 || gun4d>15 || gun5d>15){
+
+      if(gun1db){
+        if(gun1d<=0){break;}
+      }
+
+      if(gun2db){
+        if(gun2d<=0){break;}
+      }
+
+      if(gun3db){
+        if(gun3d<=0){break;}
+      }
+
+      if(gun4db){
+        if(gun4d<=0){break;}
+      }
+
+      if(gun5db){
+        if(gun5d<=0){break;}
+      }
+
+      gunt++;
+      gun1d--;
+      gun2d--;
+      gun3d--;
+      gun4d--;
+      gun5d--;
+
+
+
+    } 
+    
+
+
+   context.read<Input_prov>().guns6(gunt);
+
+    gunt=0; 
+
+
+    kalem1= context.read<Input_prov>().ogun1;
+    kalem2= context.read<Input_prov>().ogun2;
+    kalem3= context.read<Input_prov>().ogun3;
+    kalem4= context.read<Input_prov>().ogun4;
+    kalem5= context.read<Input_prov>().ogun5;
+    silgi=context.read<Input_prov>().ogunt;
+
+    bool asdf1 = true; 
+    bool asdf2 = true; 
+    bool asdf3 = true; 
+    bool asdf4 = true; 
+    bool asdf5 = true; 
+
+    if(kalem1 - silgi <= 15 ){context.read<Input_prov>().alinabilir1('reçetelendirilebilir'); asdf1=true;}  if(kalem1 - silgi > 15){context.read<Input_prov>().alinabilir1('reçetelendirilemez'); asdf1=false; kalem1=0;}
+    print(gun1d);
+    if(kalem2 - silgi <= 15 ){context.read<Input_prov>().alinabilir2('reçetelendirilebilir'); asdf2=true;}  if(kalem2 - silgi > 15){context.read<Input_prov>().alinabilir2('reçetelendirilemez'); asdf2=false; kalem2=0;}
+    print(gun2d);
+    if(kalem3 - silgi <= 15 ){context.read<Input_prov>().alinabilir3('reçetelendirilebilir'); asdf3=true;}  if(kalem3 - silgi > 15){context.read<Input_prov>().alinabilir3('reçetelendirilemez'); asdf3=false; kalem3=0;}
+    print(gun3d);
+    if(kalem4 - silgi <= 15 ){context.read<Input_prov>().alinabilir4('reçetelendirilebilir'); asdf4=true;}  if(kalem4 - silgi > 15){context.read<Input_prov>().alinabilir4('reçetelendirilemez'); asdf4=false; kalem4=0;}
+    print(gun4d);
+    if(kalem5 - silgi <= 15 ){context.read<Input_prov>().alinabilir5('reçetelendirilebilir'); asdf5=true;}  if(kalem5 - silgi > 15){context.read<Input_prov>().alinabilir5('reçetelendirilemez'); asdf5=false; kalem5=0;}
+    print(gun5d);
+
+    
+
+    if(kalem1>0){gun1db=true;} else{gun1db=false;}
+    if(kalem2>0){gun2db=true;} else{gun2db=false;}
+    if(kalem3>0){gun3db=true;} else{gun3db=false;}
+    if(kalem4>0){gun4db=true;} else{gun4db=false;}
+    if(kalem5>0){gun5db=true;} else{gun5db=false;}
+
+
+    
+
+    while( kalem1>15 || kalem2>15 || kalem3>15 || kalem4>15 || kalem5>15){
+
+      
+      
+      if(gun1db){
+        if(kalem1<=0){break;}
+      }
+
+      if(gun2db){
+        if(kalem2<=0){break;}
+      }
+
+      if(gun3db){
+        if(kalem3<=0){break;}
+      }
+
+      if(gun4db){
+        if(kalem4<=0){break;}
+      }
+
+      if(gun5db){
+        if(kalem5<=0){break;}
+      }
+
+      gunt++;
+      kalem1--;
+      kalem2--;
+      kalem3--;
+      kalem4--;
+      kalem5--;
+
+    }
+
+    context.read<Input_prov>().guns6(gunt);
+    
+                
+                med2s=context.read<Input_prov>().med2 ?? 'boş';
+                med3s=context.read<Input_prov>().med3 ?? 'boş';
+                med4s=context.read<Input_prov>().med4 ?? 'boş';
+                med5s=context.read<Input_prov>().med5 ?? 'boş';
+
+                if(Datec){gun1--;gun2--;gun3--;gun4--;gun5--;gunt--;}
+
+                a=5;
+
+
+    context.read<Input_prov>().yenile();
+
+                Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder:(context)=>ListPage()),(Route<dynamic>route)=>false,);
+
+                
+
+                
+                double k1 = context.read<Input_prov>().kutu1;
+                double l1 = context.read<Input_prov>().kutu2;
+                double m1 = context.read<Input_prov>().kutu3;
+                double n1 = context.read<Input_prov>().kutu4;
+                double p1 = context.read<Input_prov>().kutu5;
+
+                double k2 = context.read<Input_prov>().gunluk1;
+                double l2 = context.read<Input_prov>().gunluk2;
+                double m2 = context.read<Input_prov>().gunluk3;
+                double n2 = context.read<Input_prov>().gunluk4;
+                double p2 = context.read<Input_prov>().gunluk5;
+
+                double k3 = context.read<Input_prov>().ttablet1;
+                double l3 = context.read<Input_prov>().ttablet2;
+                double m3 = context.read<Input_prov>().ttablet3;
+                double n3 = context.read<Input_prov>().ttablet4;
+                double p3 = context.read<Input_prov>().ttablet5;
+
+
+
+                if(k1 != 0 && k2 != 0 && k3 !=0){context.read<Input_prov>().kaydet1();}
+                if(l1 != 0 && l2 != 0 && l3 !=0){context.read<Input_prov>().kaydet2();}
+                if(m1 != 0 && m2 != 0 && m3 !=0){context.read<Input_prov>().kaydet3();}
+                if(n1 != 0 && n2 != 0 && n3 !=0){context.read<Input_prov>().kaydet4();}
+                if(p1 != 0 && p2 != 0 && p3 !=0){context.read<Input_prov>().kaydet5();}
+
+
+
+                String? f = context.read<Input_prov>().med1 ?? 'Boş';
+                String? g = context.read<Input_prov>().med1 ?? 'Boş';
+                String? h = context.read<Input_prov>().med1 ?? 'Boş';
+                String? j = context.read<Input_prov>().med1 ?? 'Boş';
+                String? i = context.read<Input_prov>().med1 ?? 'Boş';
+                if(f!='Boş'){context.read<Input_prov>().kaydeti1();}
+                if(g!='Boş'){context.read<Input_prov>().kaydeti2();}
+                if(h!='Boş'){context.read<Input_prov>().kaydeti3();}
+                if(j!='Boş'){context.read<Input_prov>().kaydeti4();}
+                if(i!='Boş'){context.read<Input_prov>().kaydeti5();}
+
+
+                 context.read<Input_prov>().reloadi();
+
+              
+              }
+            ), //"Hesapla" butonu eklenir.
+
+             SizedBox(width: 150,), 
+              ],
+            ),
+            Column(
+  children: [
+    Image.asset('lib/assets/a.png',scale:2),  //"Hesapla" butonu altına uygulama logosu eklenir.
+  ],
+)
+          ],
+        ),
+    );
+  }
+}

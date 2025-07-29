@@ -1,0 +1,594 @@
+import 'package:flutter/material.dart';
+import 'package:ecza/main.dart' ; 
+import 'package:ecza/listscreen';
+import 'package:ecza/providers/input_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:hive_flutter/hive_flutter.dart'; //Sayfanın çalışması için gerekli paketler eklenir.
+
+
+
+
+class AddScreen extends StatefulWidget{
+  const AddScreen({super.key});
+  @override
+  _AddScreen createState() => _AddScreen();
+}
+
+class _AddScreen extends State<AddScreen>{
+  @override  
+
+  final Input_prov prov= new Input_prov();
+
+
+      final _mybox = Hive.box('mybox'); //Hive plugini için gerekli değişken atanır.
+
+      bool isPazartesi=false;
+      bool isSali=false;
+      bool isCarsamba=false;
+      bool isPersembe=false;
+      bool isCuma=false;
+      bool isCumartesi=false;
+      bool isPazar=false;
+
+      bool val1=false;
+      bool val2=false;
+      bool val3=false;
+      bool val4=false;
+      bool val5=false;
+      bool val6=false;
+      bool val7=false;
+
+     bool val8=false;
+     bool val9=false;
+     bool val10=false;
+     bool val11=false;
+     bool val12=false;
+
+      bool slot1=false;
+      bool slot2=false;
+      bool slot3=false;
+      bool slot4=false;
+      bool slot5=false;
+
+      String? asdasd;
+      String? isim1;
+      String? isim2; 
+      String? isim3;
+      String? isim4; 
+      String? isim5; 
+
+     String nameOftheDrug='empty';
+
+     double toplam=0;
+     double gadet=0;
+     double kutu=0;
+
+
+    final drugController=TextEditingController();
+    final gadetc=TextEditingController();
+    final toplamc=TextEditingController();
+    final kutuc = TextEditingController(); //Uygulama için gerekli değişkenler atanır.
+    
+
+    Widget build(BuildContext context) {
+      return Scaffold(
+        backgroundColor: Color(0xFFe1efef), //Uygulamanın arka plan rengi ayarlanır.
+       
+       
+       
+       
+       
+        body: Column(
+          children: <Widget>[
+
+              Container(
+              width: double.maxFinite,
+              height: 55,
+              color: Colors.blue, 
+              child: Center(child: Text(
+            'E-CZA',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 40,
+              backgroundColor: Colors.blue,) //Başlığı çevreleyen bölgenin rengi ayarlanır.
+              
+            ),
+            )
+            
+          ), //Uygulama başlığı ve başlğı çevreleyen bölge eklenir.
+               
+
+
+          SizedBox
+          (
+          height: 5,
+          ), //Uygulama başlığı ve "Geri Dön" butonu arasına boşluk eklenir.
+
+          ElevatedButton(  
+                  child: Text("Geri Dön", style: TextStyle(fontSize: 20),),     
+                  onPressed:() { Navigator.push(context, MaterialPageRoute(builder: (context) => ListPage()));},
+                      style: ElevatedButton.styleFrom(),
+                 ), //"Geri Dön" butonu eklenir.
+          
+          
+          
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children:<Widget>[
+                 
+                 
+                 Column(
+            children:  <Widget>[
+            
+            Checkbox(
+            value: val8,
+            activeColor: Colors.green,
+            onChanged:(bool? a){
+            setState((){
+              if(a==true){
+                val8=true;
+              }
+              else val8=false;  
+              
+            });
+            
+            if(val8==true){
+              slot1=true;
+            }
+            else slot1=false;
+          }
+          ),
+            Text('1'),
+
+            
+
+            ],
+          ) , //İlaç kaydetme alanı seçim butonu eklenir.
+
+          Column(
+            children:  <Widget>[
+            
+            Checkbox(
+            value: val9,
+            activeColor: Colors.green,
+            onChanged:(bool? b){
+            setState((){
+              if(b==true){
+                val9=true;
+              }
+              else val9=false;  
+              
+            });
+            
+            if(val9==true){
+              slot2=true;
+            }
+            else slot2=false;
+          }
+          ),
+            Text('2'),
+
+            
+
+            ],
+          ) , //İlaç kaydetme alanı seçim butonu eklenir.
+
+          Column(
+            children:  <Widget>[
+            
+            Checkbox(
+            value: val10,
+            activeColor: Colors.green,
+            onChanged:(bool? c){
+            setState((){
+              if(c==true){
+                val10=true;
+              }
+              else val10=false;  
+              
+            });
+            
+            if(val10==true){
+              slot3=true;
+            }
+            else slot3=false;
+          }
+          ),
+            Text('3'),
+
+            
+
+            ],
+          ) , //İlaç kaydetme alanı seçim butonu eklenir.
+
+          Column(
+            children:  <Widget>[
+            
+            Checkbox(
+            value: val11,
+            activeColor: Colors.green,
+            onChanged:(bool? d){
+            setState((){
+              if(d==true){
+                val11=true;
+              }
+              else val11=false;  
+              
+            });
+            
+            if(val11==true){
+              slot4=true;
+            }
+            else slot4=false;
+          }
+          ),
+            Text('4'),
+
+            
+
+            ],
+          ) , //İlaç kaydetme alanı seçim butonu eklenir.
+
+          Column(
+            children:  <Widget>[
+            
+            Checkbox(
+            value: val12,
+            activeColor: Colors.green,
+            onChanged:(bool? e){
+            setState((){
+              if(e==true){
+                val12=true;
+              }
+              else val12=false;  
+              
+            });
+            
+            if(val12==true){
+              slot5=true;
+            }
+            else slot5=false;
+          }
+          ),
+            Text('5'),
+
+            
+
+            ],
+          ) , //İlaç kaydetme alanı seçim butonu eklenir.
+
+              ]
+            ), //İlaç ekleme bölmesi seçilecek butonlar eklenir.
+          
+
+              Container(
+            width: double.maxFinite,
+            child: Text(
+            'İlaç Alınan Günleri Seçin',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20,
+              
+              
+            ),
+            )
+            
+          ), //İlaç alınan günlerin belirtildiği alan üzerine başlık eklenir.
+          
+
+
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children:<Widget>[
+
+            Column(
+            children:  <Widget>[
+            
+            Checkbox(
+            value: val1,
+            activeColor: Colors.green,
+            onChanged:(bool? pazartesi){
+            setState((){
+              if(pazartesi==true){
+                val1=true;
+              }
+              else val1=false;  
+              
+            });
+            
+            if(val1==true){
+              isPazartesi=true;
+            }
+            else isPazartesi=false;
+          }
+          ),
+            Text('Pzt.'),
+            ],
+          ) , //Gün seçim butonu eklenir.
+
+          Column(
+            children:  <Widget>[
+            
+            Checkbox(
+            value: val2,
+            activeColor: Colors.green,
+            onChanged:(bool? sali){
+            setState((){
+              if(sali==true){
+                val2=true;
+              }
+              else val2=false;  
+              
+            });
+            
+            if(val1==true){
+              isSali=true;
+            }
+            else isSali=false;
+          }
+          ),
+            Text('Sal.'),
+            ],
+          ) , //Gün seçim butonu eklenir.
+
+          Column(
+            children:  <Widget>[
+            
+            Checkbox(
+            value: val3,
+            activeColor: Colors.green,
+            onChanged:(bool? carsamba){
+            setState((){
+              if(carsamba==true){
+                val3=true;
+              }
+              else val3=false;  
+              
+            });
+            
+            if(val3==true){
+              isCarsamba=true;
+            }
+            else isCarsamba=false;
+          }
+          ),
+            Text('Çar.'),
+            ],
+          ) , //Gün seçim butonu eklenir.
+
+          Column(
+            children:  <Widget>[
+            
+            Checkbox(
+            value: val4,
+            activeColor: Colors.green,
+            onChanged:(bool? persembe){
+            setState((){
+              if(persembe==true){
+                val4=true;
+              }
+              else val4=false;  
+              
+            });
+            
+            if(val4==true){
+              isPersembe=true;
+            }
+            else isPersembe=false;
+          }
+          ),
+            Text('Per.'),
+            ],
+          ) , //Gün seçim butonu eklenir.
+
+          Column(
+            children:  <Widget>[
+            
+            Checkbox(
+            value: val5,
+            activeColor: Colors.green,
+            onChanged:(bool? cuma){
+            setState((){
+              if(cuma==true){
+                val5=true;
+              }
+              else val5=false;  
+              
+            });
+            
+            if(val5==true){
+              isCuma=true;
+            }
+            else isCuma=false;
+          }
+          ),
+            Text('Cum.'),
+            ],
+          ) , //Gün seçim butonu eklenir.
+
+          Column(
+            children:  <Widget>[
+            
+            Checkbox(
+            value: val6,
+            activeColor: Colors.green,
+            onChanged:(bool? cumartesi){
+            setState((){
+              if(cumartesi==true){
+                val6=true;
+              }
+              else val6=false;  
+              
+            });
+            
+            if(val6==true){
+              isCumartesi=true;
+            }
+            else isCumartesi=false;
+          }
+          ),
+            Text('Cmt.'),
+            ],
+          ) , //Gün seçim butonu eklenir.
+
+          Column(
+            children:  <Widget>[
+            
+            Checkbox(
+            value: val7,
+            activeColor: Colors.green,
+            onChanged:(bool? pazar){
+            setState((){
+              if(pazar==true){
+                val7=true;
+              }
+              else val7=false;  
+              
+            });
+            
+            if(val7==true){
+              isPazar=true;
+            }
+            else isPazar=false;
+          }
+          ),
+            Text('Pzr.'),
+            ],
+          ) , //Gün seçim butonu eklenir.
+            
+            
+
+              ]
+            ), //Gün seçim alanı eklenir.
+
+
+
+            Container(
+            width: double.maxFinite,
+            child: Text(
+            'İlaç Adı',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20,
+            ),
+            )
+          ), //İlaç adı girilen alan üzerine başlığı eklenir.
+
+            TextField(
+            controller: drugController,
+            obscureText: false,
+            decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'ilaç ismini girin',
+          ), 
+          ), //İlaç adı girilen alan eklenir.
+          
+          
+            Container(
+            width: double.maxFinite,
+            child: Text(
+            'Kutudaki Tablet Sayısı',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20,
+            ),
+            )
+            
+          ), //Tablet sayısı belirtilen alan üzerine başlığı eklenir.
+
+
+           TextField(
+            controller:toplamc,
+            obscureText: false,
+            decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'adet belirtiniz',
+          ),
+          ), //Tablet sayısı belirtilen alan eklenir.
+          
+
+            Container(
+            width: double.maxFinite,
+            child: Text(
+            'Günlük Kullanım Sayısı',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20, 
+            ),
+            )
+            
+          ), //Günlük kullanım sayısı belirtilen alan üzerine başlığı eklenir.
+
+
+           TextField(
+            controller:gadetc,
+            obscureText: false,
+            decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'adet belirtin',
+          ),
+          ), //Günlük kullanım sayısı belirtilen alan eklenir.
+        
+          Container(
+            width: double.maxFinite,
+            child: Text(
+            'Kutu Sayısı',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20, 
+            ),
+            )
+            
+          ), //İlaç kutu sayısı belirtilen alan üzerine başlığı eklenir.
+
+
+           TextField(
+            controller:kutuc,
+            obscureText: false,
+            decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'adet belirtin',
+          ),
+          ), //İlaç kutu sayısı belirtilen alan eklenir.
+        
+        SizedBox
+        (
+        height: 3,
+        ), //Kutu sayısı belirtilen alan ile "İlacı Kaydet" butonu arasına boşluk eklenir.
+
+
+
+          ElevatedButton(  
+                  child: Text("İlacı Kaydet", style: TextStyle(fontSize: 20),),     
+                  onPressed:() {
+                    print(isPazartesi);
+                    nameOftheDrug=drugController.text;
+                    toplam=double.tryParse(toplamc.text) ?? 0;
+                    gadet=double.tryParse(gadetc.text) ?? 0;
+                    kutu=double.tryParse(kutuc.text) ?? 0;
+                    print(gadet);
+                    if(slot1==true){context.read<Input_prov>().getmed1(nameOftheDrug,isPazar,isSali,isCarsamba,isPersembe,isCuma,isCumartesi,isPazartesi,kutu,gadet,toplam); _mybox.put(100, 0) ; Navigator.push(context, MaterialPageRoute(builder: (context) => ListPage()));}
+                    else if(slot2==true){context.read<Input_prov>().getmed2(nameOftheDrug,isPazar,isSali,isCarsamba,isPersembe,isCuma,isCumartesi,isPazartesi,kutu,gadet,toplam); _mybox.put(101, 0) ; Navigator.push(context, MaterialPageRoute(builder: (context) => ListPage()));}
+                    else if(slot3==true){context.read<Input_prov>().getmed3(nameOftheDrug,isPazar,isSali,isCarsamba,isPersembe,isCuma,isCumartesi,isPazartesi,kutu,gadet,toplam); _mybox.put(102, 0) ; Navigator.push(context, MaterialPageRoute(builder: (context) => ListPage()));}
+                    else if(slot4==true){context.read<Input_prov>().getmed4(nameOftheDrug,isPazar,isSali,isCarsamba,isPersembe,isCuma,isCumartesi,isPazartesi,kutu,gadet,toplam); _mybox.put(103, 0) ; Navigator.push(context, MaterialPageRoute(builder: (context) => ListPage()));}
+                    else if(slot5==true){context.read<Input_prov>().getmed5(nameOftheDrug,isPazar,isSali,isCarsamba,isPersembe,isCuma,isCumartesi,isPazartesi,kutu,gadet,toplam); _mybox.put(104, 0) ; Navigator.push(context, MaterialPageRoute(builder: (context) => ListPage()));}
+                    },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue, //"İlacı Kaydet" butonunun arka plan rengi eklenir.
+                       ),
+                 ), //"İlacı Kaydet" butonu eklenir.
+          ],
+
+
+
+
+
+
+
+          ),
+        );
+      
+ }
+}
+

@@ -1,0 +1,93 @@
+
+import 'package:flutter/material.dart';
+import 'package:ecza/addingmeds';
+import 'package:ecza/providers/input_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
+import 'package:ecza/listscreen'; //Sayfanın çalışması için gerekli paketler eklenir.
+
+
+class LoginScreen extends StatefulWidget{
+  const LoginScreen({super.key});
+
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<LoginScreen>{
+  TextEditingController mailController = new TextEditingController(); //E-posta girilmesi için kullanılan değişken atanır.
+  TextEditingController passwordController = new TextEditingController(); //Şifre girilmesi için kullanılan değişken atanır.
+
+  String email='admin';
+  String password= "admin";
+
+  String user_mail='';
+  String user_pas= '';
+  @override  
+
+// 
+
+  Widget build(BuildContext context){
+    return Scaffold(
+      backgroundColor: Color(0xFFe1efef), //Uygulamanın arka plan rengi belirlenir.
+      body: Padding(
+        padding: const EdgeInsets.all(0),
+        child: Column(
+          children: <Widget> [
+
+            Container(
+              width: double.maxFinite,
+              height: 55,
+              color: Colors.blue, 
+              child: Center(child: Text(
+            'E-CZA',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 40,
+              backgroundColor: Colors.blue,) 
+              
+            ),
+            )
+          ), //Uygulama başlığı ve başlığı çevreleyen bölge eklenir.
+           
+           SizedBox
+          (
+          height: 80,
+          ), //Başlık ve giriş yapma alanı arasına boşluk eklenir.
+
+           
+                MaterialButton(
+                  onPressed: (){
+                    setState((){
+                      user_mail= mailController.text;
+                      user_pas= passwordController.text;
+                    });
+                    children: [
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => ListPage())),
+                    ];
+                    context.read<Input_prov>().compareDate1();
+                        context.read<Input_prov>().compareDate2();
+                        context.read<Input_prov>().compareDate3();
+                        context.read<Input_prov>().compareDate4();
+                        context.read<Input_prov>().compareDate5();
+                  },
+                  color: Colors.blue,
+                  child: const Text('Giriş', style: TextStyle(color: Colors.white)),
+                ), //"Giriş" butonu eklenir.
+                
+                
+                Column(
+  children: [
+    Image.asset('lib/assets/a.png',scale:2), //Uygulama logosu eklenir.
+  ],
+)
+              ],  
+            )  ,
+        )  ,
+    );  
+  }  
+}  
+
+
